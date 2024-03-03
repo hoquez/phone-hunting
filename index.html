@@ -29,10 +29,20 @@
       </div>
     </section>
     <section>
+      <!-- spinner -->
+      <div class="text-center my-40">
+        <span
+          id="loading-spinner"
+          class="loading loading-spinner loading-lg hidden"
+        ></span>
+      </div>
+      <!-- search result -->
       <div
         id="container"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto mt-10"
       ></div>
+      <!-- Show all search result -->
+      <button id="show-all" class="btn btn-accent hidden">Show All</button>
     </section>
     <script src="./js/index.js"></script>
     <script src="./js/utility.js"></script>
