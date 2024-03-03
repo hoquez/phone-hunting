@@ -30,7 +30,7 @@ const displayPhones = (devices) => {
   devices = devices.slice(0, 12);
   //
   devices.forEach((device) => {
-    console.log(device);
+    // console.log(device);
     //step 2: create a div
     const phoneCard = document.createElement("div");
     phoneCard.classList = `card bg-gray-100 p-4`;
@@ -46,9 +46,9 @@ const displayPhones = (devices) => {
       <div class="badge badge-secondary">NEW</div>
     </h2>
     <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div class="card-actions justify-end">
-      <div class="badge badge-outline">Fashion</div>
-      <div class="badge badge-outline">Products</div>
+    <div class="card-actions justify-center">
+  
+      <button onclick="handleShowDetail('${device.slug}')"  class="btn btn-active bg-gray-300">Show Details</button>
     </div>
   </div>`;
     //step 4: append child
@@ -75,4 +75,39 @@ const toggleLoadingSpinner = (isLoading) => {
   } else {
     loadingSpinner.classList.add("hidden");
   }
+};
+
+//handle show all
+const handleShowAll = () => {};
+
+//handle show de ta ils
+const handleShowDetail = async (id) => {
+  //load data
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/phone/${id}`
+  );
+  const data = await res.json();
+  const phone = data.data;
+  console.log(phone);
+  showPhoneDetail(phone);
+};
+
+//
+const showPhoneDetail = (phone) => {
+  const phoneName = document.getElementById("showDetail-phone-name");
+  phoneName.innerText = phone.name;
+  const showDetailContainer = document.getElementById("show-detail-container");
+  showDetailContainer.innerHTML = `
+  <img class="my-4" src="${phone.image}" alt="">
+  <p><span class="font-bold" >Storage:</span> ${phone?.mainFeatures?.storage}</p>
+  <p class="my-4" ><span class="font-bold " >Display Size:</span> ${phone?.mainFeatures?.displaySize}</p>
+  <p class="my-4" ><span class="font-bold " >Chip Set:</span> ${phone?.mainFeatures?.chipSet}</p>
+  <p class="my-4" ><span class="font-bold " >Memory:</span> ${phone?.mainFeatures?.memory}</p>
+  <p class="my-4" ><span class="font-bold " >Slug:</span> ${phone?.slug}</p>
+  <p class="my-4" ><span class="font-bold " >Release Date:</span> ${phone?.releaseDate}</p>
+  <p class="my-4" ><span class="font-bold " >Brand:</span> ${phone?.brand}</p>
+  <p class="my-4" ><span class="font-bold " >GPS:</span> ${phone?.others?.GPS}</p>
+  `;
+
+  show_details_modal.showModal();
 };
